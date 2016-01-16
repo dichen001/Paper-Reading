@@ -19,22 +19,26 @@ APA	]
 This work uses email-specific features to improve performance of person name recognizers for emails, and also use a 
 recall-enhancing method to exploit name repetition across multiple documents.
 
-**Method:** 
+#####Performance Improvement#####
 Based on [conditional random fields (CRE)](https://en.wikipedia.org/wiki/Conditional_random_field), they use special attributes 
 of emalil text to improve the performance. 
 Basically, they use Basic, Dictionary and Email features together to improve the F performance.
 
 See the table below, 
-![alt text](https://github.com/adam-p/markdown-here/raw/master/src/common/images/icon48.png "Logo Title Text 1")
+![alt text](https://raw.githubusercontent.com/dichen001/Paper-Reading/master/img/t2.png "t2")
+![alt text](https://raw.githubusercontent.com/dichen001/Paper-Reading/master/img/t3.png "t3")
 
 The observation is that email messages often include some structured, easy-to-recognize names, such as names within a header,
 names appearing in automatically-generated phrases, as well as names in signature files or sign-offs. 
 
 
-To improve recall, they first look for multiple occurrences of names in a document.  Specifically, they take *single documment 
+#####Improvement for Recall#####
+They first look for multiple occurrences of names in a document.  Specifically, they take *single documment 
 repetition* (SDR) and *multiple document repetition* (MDR) to improve the recall.
+![f3](https://raw.githubusercontent.com/dichen001/Paper-Reading/master/img/f3.png "f3")
 
 Secondly, they also improve recall with Inferred Dictionaries. See one example and the improvement result below.
+![f4](https://raw.githubusercontent.com/dichen001/Paper-Reading/master/img/f4.png "f4")
 
 That is based on the fact that a word *w* has appeared somewhere in a context that clearly indicates that it is a name 
 does not increase the probability that it will be classified as a name in other, more ambiguous contexts.
