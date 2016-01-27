@@ -12,3 +12,14 @@
 - **Development**
   - 1 --> 2 (Part of 1) <==> 3 (Detailed Version)
   - 4 Using ML, has a related open-source project using Python called [Talon](https://github.com/mailgun/talon)
+
+## Details
+### Signature Extraction
+1. Parser Method
+  - Parse each line into different functional class
+  - Differentiate them according to the features of different block. 
+  - For Signature parts, they usually have Email, URL, Phone Numbers, Miscs ect, once the portion of these parts exceed one threshould, they are marked as Sig.
+2. ML Method
+  - For each user, find last K lines which are identiccal for most of the emails.
+  - An email message is represented by a set of features, and a classifier is
+learned over this feature space.
