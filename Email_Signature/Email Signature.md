@@ -28,12 +28,12 @@
   - An email message is represented by a set of features, and a classifier is
 learned over this feature space.
 
-![Screen Shot 2016-01-27 at 2.04.43 PM.png](quiver-image-url/D1B45FA00952AD4130BB007FA37FF4B9.png)
+![Screen Shot 2016-01-27 at 2.04.43 PM.png](resources/D1B45FA00952AD4130BB007FA37FF4B9.png)
 
 ### Signature Parsing
-![Screen Shot 2016-01-27 at 2.10.43 PM.png](quiver-image-url/FC88982F824B284519BC6823D6350779.png)
-![Screen Shot 2016-01-27 at 2.11.13 PM.png](quiver-image-url/C976B739B1EE572FD3192CD10D1F51B3.png)
-![Screen Shot 2016-01-27 at 2.13.58 PM.png](quiver-image-url/0C7A39A738C45F6380F11D30493DF6F1.png)
+![Screen Shot 2016-01-27 at 2.10.43 PM.png](resources/FC88982F824B284519BC6823D6350779.png)
+![Screen Shot 2016-01-27 at 2.11.13 PM.png](resources/C976B739B1EE572FD3192CD10D1F51B3.png)
+![Screen Shot 2016-01-27 at 2.13.58 PM.png](resources/0C7A39A738C45F6380F11D30493DF6F1.png)
 
 ##Performance
 ###Overview
@@ -42,4 +42,4 @@ __Recall: 53% (97/183).__ (Among the 86 errors, 79 are trivial one-line signatur
 __Precision: 90%(97/108).__
 - [4] __Accuracy__ (above __99%__) and _F1_ measures (nearly __97%__) were achieved
 
-![Screen Shot 2016-01-27 at 2.04.09 PM.png](quiver-image-url/DFB054AB733CE5DDFF225E3DA3EC6F29.png)
+![Screen Shot 2016-01-27 at 2.04.09 PM.png](resources/DFB054AB733CE5DDFF225E3DA3EC6F29.png)
