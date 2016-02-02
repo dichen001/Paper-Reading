@@ -33,7 +33,7 @@ learned over this feature space.
 ### Signature Parsing
 ![Screen Shot 2016-01-27 at 2.10.43 PM.png](img/FC88982F824B284519BC6823D6350779.png)
 ![Screen Shot 2016-01-27 at 2.11.13 PM.png](img/C976B739B1EE572FD3192CD10D1F51B3.png)
-![Screen Shot 2016-01-27 at 2.13.58 PM.png](iiimg/0C7A39A738C45F6380F11D30493DF6F1.png)
+![Screen Shot 2016-01-27 at 2.13.58 PM.png](img/0C7A39A738C45F6380F11D30493DF6F1.png)
 
 ##Performance
 ###Overview
