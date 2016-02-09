@@ -11,6 +11,7 @@
 6. 2011----07-----Automatically-Locating-Salutation-and-Signature-Blocks-in-Emails
 7. 2012----01-----Interpreting-Contact-Details-out-of-E-mail-Signature-Blocks
 
+![citation map](citation%20within%20years.jpg)
 
 - **Development**
   - 1 --> 2 (Part of 1) <==> 3 (Detailed Version)
