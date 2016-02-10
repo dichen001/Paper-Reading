@@ -16,7 +16,7 @@
 - **Development**
   - 1 --> 2 (Part of 1) <==> 3 (Detailed Version)
   - 4 Using ML, has a related open-source project using Python called [Talon](https://github.com/mailgun/talon)
-  - 5 As an improvement of ref[4], it could distinguish more categories related to the email author and include additional features in the document structure, such as advertisements. Also it could distinguish forward and reply lines in the email.
+  - 5 As an improvement on ref [4], it could distinguish more categories related to the email author and include additional features in the document structure, such as advertisements. Also it could distinguish forward and reply lines in the email.
 
 ## Details
 ### Signature Extraction
