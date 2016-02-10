@@ -65,13 +65,18 @@ learned over this feature space.
 
 
 
--![Screen Shot 2016-01-27 at 2.04.43 PM.png](img/D1B45FA00952AD4130BB007FA37FF4B9.png)
-
-### Signature Parsing 
+## Examples in the papers
+### [1,2,3]
  -![Screen Shot 2016-01-27 at 2.10.43 PM.png](img/FC88982F824B284519BC6823D6350779.png)		 
  -![Screen Shot 2016-01-27 at 2.11.13 PM.png](img/C976B739B1EE572FD3192CD10D1F51B3.png)		
  -![Screen Shot 2016-01-27 at 2.13.58 PM.png](img/0C7A39A738C45F6380F11D30493DF6F1.png)
+ 
+### [4]
+![image](https://cloud.githubusercontent.com/assets/15117843/12956825/e8dff7b8-cff7-11e5-81b2-90dc7a4707d1.png)
+-![Screen Shot 2016-01-27 at 2.04.43 PM.png](img/D1B45FA00952AD4130BB007FA37FF4B9.png)
 
+### [6]
+![image](https://cloud.githubusercontent.com/assets/15117843/12956834/f8afa800-cff7-11e5-902d-1d59227afa08.png)
 
 
 
