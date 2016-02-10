@@ -7,9 +7,10 @@
 2. 1998----05-----E-mail-Signature-Block-Analysis
 3. 1999----17-----Integrating-Geometrical-and-Linguistic-Analysis-for-Email-Signature-Block-Parsing
 4. 2004----85-----Learning-to-Extract-Signature-and-Reply-Lines-from-Email
-5. 2009----16-----Segmenting-Email-Message-Text-into-Zones
-6. 2011----07-----Automatically-Locating-Salutation-and-Signature-Blocks-in-Emails
-7. 2012----01-----Interpreting-Contact-Details-out-of-E-mail-Signature-Blocks
+5. 2007----68-----Author Profiling for English Emails
+6. 2009----16-----Segmenting-Email-Message-Text-into-Zones
+7. 2011----07-----Automatically-Locating-Salutation-and-Signature-Blocks-in-Emails
+8. 2012----01-----Interpreting-Contact-Details-out-of-E-mail-Signature-Blocks
 
 
 - **Development**
