@@ -10,7 +10,7 @@
 7. 2011----07-----[Automatically-Locating-Salutation-and-Signature-Blocks-in-Emails](http://ieeexplore.ieee.org/xpls/abs_all.jsp?arnumber=6019891&tag=1)
 8. 2012----01-----[Interpreting-Contact-Details-out-of-E-mail-Signature-Blocks](http://dl.acm.org/citation.cfm?id=2188211)
 
-![citation map](citation%20within%20years.jpg)
+![citation map](history_develop.jpg)
 
 - **Development**
   - [1] --> [2] (Part of [1]) <==> [3] (Detailed Version)
@@ -24,7 +24,9 @@ Enron email corpus
 
 
 - **Open-Source Project**
- - a related open-source project using Python called [Talon](https://github.com/mailgun/talon)
+ - a related open-source project using Python called [Talon](https://github.com/mailgun/talon) (Star 520 Fork 72)
+ - [Email reply parser 1](https://github.com/github/email_reply_parser)(Star 404 Fork 101)
+ - [Email reply parser 2](https://github.com/lawrencepit/email_reply_parser)(Star 12 Fork 10)
 
 - **Performance**
  - [1,2,3] Identification is evaluated on __347__ e-mail messages. 
