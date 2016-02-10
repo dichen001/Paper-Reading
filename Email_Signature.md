@@ -16,6 +16,7 @@
 - **Development**
   - 1 --> 2 (Part of 1) <==> 3 (Detailed Version)
   - 4 Using ML, has a related open-source project using Python called [Talon](https://github.com/mailgun/talon)
+  - 5 As an improvement of ref4, it could distinguish more categories related to the email author and include additional features in the document structure, such as advertisements. Also it could distinguish forward and reply lines in the email.
 
 ## Details
 ### Signature Extraction
@@ -36,11 +37,19 @@ learned over this feature space.
 ![Screen Shot 2016-01-27 at 2.11.13 PM.png](img/C976B739B1EE572FD3192CD10D1F51B3.png)
 ![Screen Shot 2016-01-27 at 2.13.58 PM.png](img/0C7A39A738C45F6380F11D30493DF6F1.png)
 
+5. Author Profiling
+  Analysis and in-depth preprocessing on the email text.
+  - Document parsing into five classes: Author text, Signature, Advertisement, Quoted text, Reply lines. 
+  - Text processing: segmentation and punctuation analysis.
+  - Linguistic analysis: Named Entity Recognizer.
+  
+
 ##Performance
 ###Overview
 - [1,2,3] Identification is evaluated on __347__ e-mail messages. 
 __Recall: 53% (97/183).__ (Among the 86 errors, 79 are trivial one-line signatures such as “-John” or “-J”. When excluding these, the recall becomes __93%(97/104).__ 
 __Precision: 90%(97/108).__
 - [4] __Accuracy__ (above __99%__) and _F1_ measures (nearly __97%__) were achieved
+- [5] For the task of identifying three categories(Author text, Signature, Reply), document parser achieved an accuracy of __88.16%__ while Jangada performed at __64.22%__. When focusing on the task of identifying only au- thor lines, our document parser reached an F-score of __90.76%__ compared to __74.64%__ from ref __4__.
 
 ![Screen Shot 2016-01-27 at 2.04.09 PM.png](img/DFB054AB733CE5DDFF225E3DA3EC6F29.png)
