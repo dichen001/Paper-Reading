@@ -15,12 +15,12 @@
 - **Development**
   - [1] --> [2] (Part of [1]) <==> [3] (Detailed Version)
   - [4] uses ML, achiveing accuracy > 97%.
-  - [5] improve [4], distinguish more categories related to the email author and include additional features in the document structure, such as advertisements. Also it could distinguish forward and reply lines in the email.
-
+  - [5] finds they could not configure [4] to distinguish the more detailed categories. [4] also makes systematic errors and does not identify forwarded message text
   - [6] finds problems in [4]. Refine and extend categories in [5] to 9 zones. 
     - Data(old, homogeneous, different from contemporary, **not Enron**)
     - Didn't accurately identify forwarded or reply content in email data from the
 Enron email corpus
+ - [7] argues [3] unsatisfactory in accuracy, [4]'s  efficiency isn’t high when the methods are applied to a large email corpus.
 
 
 - **Open-Source Project**
@@ -32,7 +32,8 @@ __Recall: 53% (97/183).__ (Among the 86 errors, 79 are trivial one-line signatur
 __Precision: 90%(97/108).__
  - [4] __Accuracy__ (above __99%__) and _F1_ measures (nearly __97%__) were achieved
  - [5] document parser achieved an **accuracy** of **88.16%** while [4] performed at **64.22%**. When focusing on the task of identifying only author lines, [5] reached an **F-score** of **90.76%** compared to **74.64%** from [4].
-
+ - [6] achieves **accuracy** of **87.01%**, when the number of zones is abstracted to 2 or 3 zone classes, this increases to **93.60%** and **91.53%** respectively on **Enron**.
+ - [7] Results on the public subset of the **Enron** corpus get **average F1 value** above **90%**
 
 
 ## Details
@@ -47,12 +48,21 @@ __Precision: 90%(97/108).__
   - An email message is represented by a set of features, and a classifier is
 learned over this feature space.
 
+- [5]
+  - Builds a statistical model of document structure by extracting features from each line of a document and using them to train a statistical classifier.(using Conditional Random Fields modle)
+  - Classify the body text in an email document into 5 categories(Author text, Signature, Advertisement, Quoted, Reply).
+
 - [6] 
   - Classify into 3 big zones. (Boundaries.)
   - Classify each line for each zone using different features. 
     - Graphic: number of workds, line length
     - Orthographic: start with '>', has URL
     - Lexical Features: contain senders' name, initials, recipients.
+- [7]
+ -  Remove the quoted part from the email body. 
+ -  Exploiting a statistical method to roughly decide salutation and signature blocks
+ -  Introducing some restriction rules to decide the exact lines belonging to salutation and signature blocks.
+
 
 
 -![Screen Shot 2016-01-27 at 2.04.43 PM.png](img/D1B45FA00952AD4130BB007FA37FF4B9.png)
