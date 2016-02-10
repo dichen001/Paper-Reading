@@ -1,40 +1,57 @@
-# Email Signature
-
-##Related Work 
+##Most Related Work 
  - **Year**-**Citation**-**Name**
 
-1. 1998----28-----EMU- AN-E-MAIL-PREPROCESSOR-FOR-TEXT-TO-SPEECH
-2. 1998----05-----E-mail-Signature-Block-Analysis
-3. 1999----17-----Integrating-Geometrical-and-Linguistic-Analysis-for-Email-Signature-Block-Parsing
-4. 2004----85-----Learning-to-Extract-Signature-and-Reply-Lines-from-Email
-5. 2009----16-----Segmenting-Email-Message-Text-into-Zones
-6. 2011----07-----Automatically-Locating-Salutation-and-Signature-Blocks-in-Emails
-7. 2012----01-----Interpreting-Contact-Details-out-of-E-mail-Signature-Blocks
+1. 1998----28-----[EMU- AN-E-MAIL-PREPROCESSOR-FOR-TEXT-TO-SPEECH](http://ieeexplore.ieee.org/xpls/abs_all.jsp?arnumber=738941)
+2. 1998----05-----[E-mail-Signature-Block-Analysis](http://ieeexplore.ieee.org/xpls/abs_all.jsp?arnumber=711900)
+3. 1999----17-----[Integrating-Geometrical-and-Linguistic-Analysis-for-Email-Signature-Block-Parsing](http://dl.acm.org/citation.cfm?id=326442)
+4. 2004----85-----[Learning-to-Extract-Signature-and-Reply-Lines-from-Email](http://www.cs.cmu.edu/~wcohen/postscript/email-2004.pdf)
+5. 2007----68-----[Author Profiling for English Emails](http://hum.csse.unimelb.edu.au/pacling2007/pdf/PACLING200730.pdf)
+5. 2009----16-----[Segmenting-Email-Message-Text-into-Zones](http://dl.acm.org/citation.cfm?id=1699632)
+6. 2011----07-----[Automatically-Locating-Salutation-and-Signature-Blocks-in-Emails](http://ieeexplore.ieee.org/xpls/abs_all.jsp?arnumber=6019891&tag=1)
+7. 2012----01-----[Interpreting-Contact-Details-out-of-E-mail-Signature-Blocks](http://dl.acm.org/citation.cfm?id=2188211)
 
 ![citation map](citation%20within%20years.jpg)
 
 - **Development**
   - 1 --> 2 (Part of 1) <==> 3 (Detailed Version)
-  - 4 Using ML, has a related open-source project using Python called [Talon](https://github.com/mailgun/talon)
+  - 4 uses ML, achiveing accuracy > 97%.
+  - 5 improve 4, distinguish more categories related to the email author and include additional features in the document structure, such as advertisements. Also it could distinguish forward and reply lines in the email.
+
+  - 6 finds problems in 4. Refine and extend categories in 5 to nine zones. 
+    - Data(old, homogeneous, different from contemporary, **not Enron**)
+    - Didn't accurately identify forwarded or reply content in email data from the
+Enron email corpus
+  - 6
+
+- **Open-Source Project**
+ - a related open-source project using Python called [Talon](https://github.com/mailgun/talon)
 
 ## Details
-### Signature Extraction
-1. Parser Method
+### Signature Extraction Method
+- [1,2,3] 
   - Parse each line into different functional class
   - Differentiate them according to the features of different block. 
   - For Signature parts, they usually have Email, URL, Phone Numbers, Miscs ect, once the portion of these parts exceed one threshould, they are marked as Sig.
 
-2. ML Method
+- [4] 
   - For each user, find last K lines which are identiccal for most of the emails.
   - An email message is represented by a set of features, and a classifier is
 learned over this feature space.
 
-![Screen Shot 2016-01-27 at 2.04.43 PM.png](img/D1B45FA00952AD4130BB007FA37FF4B9.png)
+- [6] 
+  - Classify into 3 big zones. (Boundaries.)
+  - Classify each line for each zone using different features. 
+    - Graphic: number of workds, line length
+    - Orthographic: start with '>', has URL
+    - Lexical Features: contain senders' name, initials, recipients.
+
+
+![Screen Shot 2016-01-27 at 2.04.43 PM.png](quiver-image-url/D1B45FA00952AD4130BB007FA37FF4B9.png)
 
 ### Signature Parsing
-![Screen Shot 2016-01-27 at 2.10.43 PM.png](img/FC88982F824B284519BC6823D6350779.png)
-![Screen Shot 2016-01-27 at 2.11.13 PM.png](img/C976B739B1EE572FD3192CD10D1F51B3.png)
-![Screen Shot 2016-01-27 at 2.13.58 PM.png](img/0C7A39A738C45F6380F11D30493DF6F1.png)
+![Screen Shot 2016-01-27 at 2.10.43 PM.png](quiver-image-url/FC88982F824B284519BC6823D6350779.png)
+![Screen Shot 2016-01-27 at 2.11.13 PM.png](quiver-image-url/C976B739B1EE572FD3192CD10D1F51B3.png)
+![Screen Shot 2016-01-27 at 2.13.58 PM.png](quiver-image-url/0C7A39A738C45F6380F11D30493DF6F1.png)
 
 ##Performance
 ###Overview
@@ -44,3 +61,7 @@ __Precision: 90%(97/108).__
 - [4] __Accuracy__ (above __99%__) and _F1_ measures (nearly __97%__) were achieved
 
 ![Screen Shot 2016-01-27 at 2.04.09 PM.png](img/DFB054AB733CE5DDFF225E3DA3EC6F29.png)
+
+
+
+
