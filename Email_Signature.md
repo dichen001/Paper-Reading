@@ -22,12 +22,6 @@
 Enron email corpus
  - [7] argues [3] unsatisfactory in accuracy, [4]'s  efficiency isn’t high when the methods are applied to a large email corpus.
 
-
-- **Open-Source Project**
- - a related open-source project using Python called [Talon](https://github.com/mailgun/talon) (Star 520 Fork 72)
- - [Email reply parser 1](https://github.com/github/email_reply_parser)(Star 404 Fork 101)
- - [Email reply parser 2](https://github.com/lawrencepit/email_reply_parser)(Star 12 Fork 10)
-
 - **Performance**
  - [1,2,3] Identification is evaluated on __347__ e-mail messages. 
 __Recall: 53% (97/183).__ (Among the 86 errors, 79 are trivial one-line signatures such as “-John” or “-J”. When excluding these, the recall becomes __93%(97/104).__ 
@@ -83,6 +77,11 @@ learned over this feature space.
 ### [7]
 ![image](https://cloud.githubusercontent.com/assets/15117843/12956969/947a98bc-cff8-11e5-838d-3b65f524e617.png)
 
-
+- **Open-Source Project**
+ - a related open-source project using Python called [Talon](https://github.com/mailgun/talon) (Star 520 Fork 72)
+ - [Email reply parser 1](https://github.com/github/email_reply_parser)(Star 404 Fork 101)
+ - [Email reply parser 2](https://github.com/lawrencepit/email_reply_parser)(Star 12 Fork 10)
+ 
+For **[Talon](http://blog.mailgun.com/open-sourcing-our-email-signature-parsing-library/)**, its dataset consisted of 2912 email lines. Out of 1030 signature lines 954 were classified correctly. Out of 1882 non-signature lines 147 were mistaken for signature. Overall it gives us **92% success rate** and 78% area under the ROC curve. Which could be regarded as excellent and fair correspondingly.
 
 
