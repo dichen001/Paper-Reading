@@ -3,11 +3,11 @@
  
 #include <stdio.h>
 #include <string.h>
-#include <logmacros.h>
 #include <stdlib.h>
 #include <ucontext.h>
 #include <mythread.h>
 #include <_mythread.h>
+#include <mythreadextra.h>
 
 #define NOOP() do {} while(0)
 /*
@@ -19,11 +19,7 @@ static Queue q_ready    = NULL;
 static Queue q_blocked  = NULL;
 static Queue q_reapable = NULL;
   
-void MyThreadStatus (){
-    printf("READY : %d\n, BLOCKED : %d\n, REAP : %d\n", _MyThreadQueueLength(&q_ready), _MyThreadQueueLength(&q_blocked) , _MyThreadQueueLength(&q_reapable));
-}
 MyThread MyThreadCreate(void(*f)(void*), void* args) { 
-    tcs("MyThreadCreate(char* nm , int id) ");
 
     Thread* t      = (Thread*) malloc(sizeof(Thread));
 
@@ -52,7 +48,6 @@ MyThread MyThreadCreate(void(*f)(void*), void* args) {
  * the queue empty
  */
 Thread* _MyThreadPop(Queue* q){ 
-    tcs("_MyThreadPop(Thread* c)");
     Thread* head = *q; 
     if(head) {
         *q = head->after;
@@ -75,20 +70,17 @@ Thread* _MyThreadPop(Queue* q){
  * Threads are set to return to the calling process when completed
  * or yeiled. 
  */
-void _MyThreadRun() { 
-    tcs("_MyThreadRun()");
-    Thread* t = q_running; 
+void _MyThreadRun( Thread* t ) { 
     if( t->flags & THREAD_IS_STARTED ) {
         swapcontext(&t->return_ctx, &t->ctx);
     } else {
         t->flags                |= THREAD_IS_STARTED;
-        //t->return_ctx            = malloc(sizeof(ctx_t));
-        //t->ctx                   = malloc(sizeof(ctx_t));
         getcontext(&t->ctx); 
         t->ctx.uc_stack.ss_sp   = malloc(STACK_SIZE);
         t->ctx.uc_stack.ss_size = STACK_SIZE;
         t->ctx.uc_link          = &t->return_ctx; 
-        makecontext(&t->ctx, t->func, 1,  t->args); 
+        if( t->func != NULL ) 
+            makecontext(&t->ctx, t->func, 1,  t->args); 
         swapcontext(&t->return_ctx, &t->ctx);
     }
 };
@@ -97,7 +89,6 @@ void _MyThreadRun() {
  * Add a thread to a list/queue of lists. 
  */
 void _MyThreadPush(Queue* q, Thread* e) { 
-    tcs("_MyThreadPush(Thread** queue, Thread* ele)");
 
     Thread* cur = *q;
     if( cur == NULL ) { //If only one of the queue;
@@ -111,11 +102,9 @@ void _MyThreadPush(Queue* q, Thread* e) {
         e->before = cur;
         e->after = NULL;
     }
-
 };
 
 void MyThreadJoinAll() { 
-    tcs("MyThreadJoinAll()");    
     Thread * me = q_running; 
  
     if( me->child_count <= me->dead_count ) 
@@ -126,7 +115,9 @@ void MyThreadJoinAll() {
 };
 
 int MyThreadJoin(MyThread thread) {
-    tcs("MyThreadJoin(MyThread you )");
+
+    if( thread == NULL ) return 0;
+
     Thread* me  = (Thread*) q_running;
     Thread* you = (Thread*) thread;
 
@@ -141,33 +132,16 @@ int MyThreadJoin(MyThread thread) {
     return 0;
 };
 
-int _MyThreadQueueLength( Queue* q ) {
-    tcs("_MyThreadQueueLength( Queue* q )");
-    int c = 0; 
-    Thread* t = *q; 
-
-    if( t == NULL ) return c; 
-    c++;
-    while(t->after != NULL ) {
-       c++;
-       t = t->after;
-    }
-    return c; 
-};
-
 void _MyThreadScheduler(){ 
-    tcs("_MyThreadScheduler");
 
     while((q_ready != NULL) || (q_blocked != NULL)){
-        info("schedule loop");
-
         //Get the after out of the queue; 
         Thread* r = _MyThreadPop(&q_ready);
         q_running = r; 
 
         if(r != NULL){
-            _MyThreadRun();        
-
+            
+            _MyThreadRun(q_running);        
             //Thread came to schedule incomplete, dont perform any reaping.
             if( r->flags &   THREAD_YIELD_IND ) {
                 r->flags &= ~THREAD_YIELD_IND;   
@@ -191,22 +165,25 @@ void _MyThreadScheduler(){
                 _MyThreadUnblock(r->parent);                    
             }
             _MyThreadPush(&q_reapable, r); 
+
         }else{
            perror("Something wrong has happened!");
         }
         _MyThreadReap();
     }
+    q_running  = NULL;
+    q_ready    = NULL;
+    q_reapable = NULL;
+    q_blocked  = NULL;
+
 };
 
 void _MyThreadFree(Thread* t){
-    tcs("_MyThreadFree(Thread* t)");
-    
     free(t->ctx.uc_stack.ss_sp);
     free(t);
 };
 
 void _MyThreadReap(){
-     tcs("_MyThreadReap()");
      Thread* c = q_reapable; 
      Thread* n = NULL;
      while(c != NULL){
@@ -223,7 +200,6 @@ void _MyThreadReap(){
 };
 
 void MyThreadYield(){
-    tcs("MyThreadYield()");
     _MyThreadPause(&q_ready);
 };
 
@@ -231,44 +207,50 @@ void MyThreadYield(){
  *Queue the current thread to the queue specified
  */
 void _MyThreadPause(Queue* q){
-    tcs("_MyThreadPause(Queue * q)");
     _MyThreadPush(q, q_running);
     q_running->flags |= THREAD_YIELD_IND;
     swapcontext(&q_running->ctx, &q_running->return_ctx);
 };
-
-void _MyThreadPrint( Thread* t ){
-    if( t == NULL ) t = q_running; 
-    tcs("_MyThreadPrint( Thread* t )");
-    info("Id     : %d", t->id);
-    info("after Id: %d", (t->after)? t->after->id : -1);
-    info("before Id: %d", (t->before)? t->before->id : -1);
-    //info("ctx    : %s", (t->ctx)? "Yes" :"No");
-    //info("ret_ctx: %s", (t->return_ctx)? "Yes" :"No");
-};
 void MyThreadExit(){
-    NOOP();
+    setcontext( &q_running->return_ctx );
+};
+
+void MyThreadInitExtra(){
+
+    static int fork = 0;
+
+    Thread* bootstrap = (Thread*) MyThreadCreate(NULL, NULL );
+    bootstrap->ctx.uc_stack.ss_sp   = malloc(STACK_SIZE);
+    bootstrap->ctx.uc_stack.ss_size = STACK_SIZE;
+    bootstrap->ctx.uc_link          = &bootstrap->return_ctx;
+    bootstrap->flags |= THREAD_IS_STARTED;
+
+    getcontext(&bootstrap->ctx);
+    if( fork == 0 ) { 
+        fork++;
+        swapcontext(&bootstrap->return_ctx, &bootstrap->ctx);
+    } else if ( fork == 1 ) { 
+        fork++;
+        Thread* sched =  MyThreadCreate(_MyThreadScheduler, NULL);
+        q_ready   = bootstrap;
+        _MyThreadRun(sched);
+    }
 };
 
 void MyThreadInit(void(*f)(void *), void *args){
-    tcs("MyThreadInit(void(*f)(void*), void* args)");
+    q_running  = NULL;
+    q_ready    = NULL;
+    q_blocked  = NULL;
+    q_reapable = NULL;
     MyThreadCreate(f, args);
     _MyThreadScheduler();
-    info("Exiting");
-    q_ready    = NULL;
-    q_reapable = NULL;
-    q_running  = NULL;
-    q_blocked  = NULL;
-
 };
 void _MyThreadUnblock(Thread* t){
-    tcs("_MyThreadUnblock(Thread* t)");
      _MyThreadListRemove(&q_blocked, t);
     _MyThreadPush(&q_ready, t);
 };
 
 void _MyThreadListRemove(Queue* from, Thread* t){
-    tcs("_MyThreadListRemove(Queue* from, Queue* to, Thread* t)");
     Thread* aft = t->after; 
     Thread* bef = t->before;
 
@@ -291,12 +273,7 @@ void _MyThreadListRemove(Queue* from, Thread* t){
     }
 };
 
-Thread* _MyThreadGetCurrent(){
-    return q_running; 
-};
-
 MySemaphore MySemaphoreInit(int initialValue){
-    tcs("MySemaphoreInit(int initialValue)");
     Sem* s = malloc(sizeof(Sem));
     s->count = initialValue;
     s->q_blocked = NULL;
@@ -304,7 +281,7 @@ MySemaphore MySemaphoreInit(int initialValue){
 };
 
 void MySemaphoreSignal(MySemaphore sem){
-    tcs("MySemaphoreSignal(MySemaphore sem)");
+
     Sem* s = (Sem*) sem;
     if(s->count < 0 ) { 
        _MyThreadPush(&q_ready, _MyThreadPop(&s->q_blocked));
@@ -313,7 +290,7 @@ void MySemaphoreSignal(MySemaphore sem){
 };
 
 void MySemaphoreWait(MySemaphore sem){
-    tcs("MySemaphoreWait(MySemaphore sem)");
+    
     Sem* s = (Sem*) sem;
     s->count--;
     if(s->count <0){
@@ -322,7 +299,9 @@ void MySemaphoreWait(MySemaphore sem){
 };
 
 int MySemaphoreDestroy(MySemaphore sem){
-    tcs("MySemaphoreDestroy(MySemaphore sem)");
+
+    if (sem == NULL ) return -1;
+
     Sem* s = (Sem*) sem;
     if( s->q_blocked != NULL)
        return -1; 
