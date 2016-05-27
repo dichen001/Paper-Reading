@@ -10,7 +10,7 @@
 7. 2011----07-----[Automatically-Locating-Salutation-and-Signature-Blocks-in-Emails](http://ieeexplore.ieee.org/xpls/abs_all.jsp?arnumber=6019891&tag=1)
 8. 2012----01-----[Interpreting-Contact-Details-out-of-E-mail-Signature-Blocks](http://dl.acm.org/citation.cfm?id=2188211)
 
-![citation map](citation%20within%20years.jpg)
+![citation map](history_develop.jpg)
 
 - **Development**
   - [1] --> [2] (Part of [1]) <==> [3] (Detailed Version)
@@ -21,10 +21,6 @@
     - Didn't accurately identify forwarded or reply content in email data from the
 Enron email corpus
  - [7] argues [3] unsatisfactory in accuracy, [4]'s  efficiency isn’t high when the methods are applied to a large email corpus.
-
-
-- **Open-Source Project**
- - a related open-source project using Python called [Talon](https://github.com/mailgun/talon)
 
 - **Performance**
  - [1,2,3] Identification is evaluated on __347__ e-mail messages. 
@@ -81,6 +77,11 @@ learned over this feature space.
 ### [7]
 ![image](https://cloud.githubusercontent.com/assets/15117843/12956969/947a98bc-cff8-11e5-838d-3b65f524e617.png)
 
-
+- **Open-Source Project**
+ - a related open-source project using Python called [Talon](https://github.com/mailgun/talon) (Star 520 Fork 72)
+ - [Email reply parser 1](https://github.com/github/email_reply_parser)(Star 404 Fork 101)
+ - [Email reply parser 2](https://github.com/lawrencepit/email_reply_parser)(Star 12 Fork 10)
+ 
+For **[Talon](http://blog.mailgun.com/open-sourcing-our-email-signature-parsing-library/)**, its dataset consisted of 2912 email lines. Out of 1030 signature lines 954 were classified correctly. Out of 1882 non-signature lines 147 were mistaken for signature. Overall it gives us **92% success rate** and 78% area under the ROC curve. Which could be regarded as excellent and fair correspondingly.
 
 
